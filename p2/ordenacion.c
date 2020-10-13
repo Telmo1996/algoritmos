@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <sys/time.h>
+
+double microsegundos() {
+struct timeval t;
+if (gettimeofday(&t, NULL) < 0 )
+return 0.0;
+return (t.tv_usec + t.tv_sec * 1000000.0);
+}
 
 void ord_ins(int v[], int n){
     int i, x, j;
@@ -74,10 +82,45 @@ int test(int v[], int n){
     return 1;
 }
 
+double tiempos(int (*fun_ord)(int[],int), int n){
+
+    int k=100, i;
+    double t, ta, tb,t1,t2;
+    int v[n];
+    aleatorio(v,n);
+
+    ta = microsegundos();
+    fun_ord(v,n);
+    tb = microsegundos();
+
+    t = tb - ta;
+
+    if (t < 500.0){
+        ta = microsegundos();
+        for (i=0; i<k; i++){
+            aleatorio(v,n);
+            fun_ord(v,n);
+        }
+        tb = microsegundos();
+        t1 = tb-ta;
+        ta=microsegundos();
+        for(i=0;i<k;i++){
+            aleatorio(v,n);
+        }
+        tb=microsegundos();
+        t2=tb-ta;
+        t=(t1-t2)/k;
+    }
+
+    return t;
+
+
+}
 int main (int argc, char **argv){
     inicializar_semilla();
     int n=10;
     int v[n];
+    void(*fun_ord)(int,int);
 
     aleatorio(v, n);
     printf("aleatorio");
@@ -98,4 +141,7 @@ int main (int argc, char **argv){
     printf("shell");
     print_array(v, n);
     printf("%d\n", test(v, n));
+
+    fun_ord=ord_ins;
+    tiempos(ord_ins,n);
 }
