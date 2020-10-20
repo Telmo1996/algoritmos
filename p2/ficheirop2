@@ -1,0 +1,30 @@
+INFORME P2 ALGORTIMOS: Ordenación por inserción y ordenacion shell.
+Autores: Telmo Fernández Corujo, Anna Taboada Pardiñas y Andrés Pérez Comesaña.
+
+En esta práctica vamos a implementar dos algoritmos de ordenación (sell e inserción) que van a operar sobre un vector v. Así mismo con una función test vamos a comprobar su correcto funcionamiento. Además vamos a obtener sus tiempos de ejecución en base al vector v que es un vector con valores int aleatorios generados con la función "aleatorio()", este vector v va a tener diferentes tamaños y situaciones(el vector ya está ordenado en orden ascendente, el vector ya está ordenado pero en orden descendente y el vector está inicialmente desordenado).
+
+Las especificaciones de la máquina que vamos a utilizar son las siguientes:
+OS: Ubuntu 18.04.5 LTS x86_64 
+Host: GL62M 7RDX REV:1.0 
+Kernel: 5.4.0-48-generic 
+Uptime: 4 hours, 15 mins 
+Packages: 1922 
+Shell: bash 4.4.20 
+Resolution: 1920x1080 
+DE: MATE 
+WM: Metacity (Marco) 
+WM Theme: Radiant-MATE-Aqua 
+Theme: Radiant-MATE-Aqua [GTK2/3] 
+Icons: Radiant-MATE-Aqua [GTK2/3] 
+Terminal: mate-terminal 
+Terminal Font: Ubuntu Mono 13 
+CPU: Intel i5-7300HQ (4) @ 3.500GHz 
+GPU: Intel Integrated Graphics 
+GPU: NVIDIA GeForce GTX 1050 Mobile 
+Memory: 2371MiB / 7880MiB
+
+Las unidades de tiempo utilizadas en esta práctica son los microsegundos (us).
+
+
+
+
