@@ -2,12 +2,13 @@
 #include <time.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <math.h>
 
 double microsegundos() {
-struct timeval t;
-if (gettimeofday(&t, NULL) < 0 )
-return 0.0;
-return (t.tv_usec + t.tv_sec * 1000000.0);
+    struct timeval t;
+    if (gettimeofday(&t, NULL) < 0 )
+        return 0.0;
+    return (t.tv_usec + t.tv_sec * 1000000.0);
 }
 
 void ord_ins(int v[], int n){
@@ -66,6 +67,13 @@ void ascendente(int v[],int n){
     }
 }
 
+void descendente(int v[], int n){
+    int i;
+    for(i=0;i<n;i++){
+        v[n-i-1]=i;
+    }
+}
+
 void print_array(int v[], int n){
     printf("{%d", v[0]);
     for (int i=1; i<n; i++){
@@ -82,12 +90,10 @@ int test(int v[], int n){
     return 1;
 }
 
-double tiempos(int (*fun_ord)(int[],int), int n){
+double tiempos(void (*fun_ord)(int[],int), int v[], int n){
 
     int k=100, i;
     double t, ta, tb,t1,t2;
-    int v[n];
-    aleatorio(v,n);
 
     ta = microsegundos();
     fun_ord(v,n);
@@ -113,35 +119,43 @@ double tiempos(int (*fun_ord)(int[],int), int n){
     }
 
     return t;
-
-
 }
+
+void cotas(void (*fun_ord)(int[],int), void (*init)(int[],int)){
+    int n;
+    double t;
+
+    printf("n\tt(n)\t\tt(n)/n^1.8\tt(n)/n^2\tt(n)/n^2.2\n");
+    for(n=500; n<=32000; n*=2){
+        int v[n];
+        init(v, n);
+        t=tiempos(fun_ord, v, n);
+
+        printf("%d\t", n);
+        printf("%f\t", t);
+        printf("%f\t", t/pow(n,1.8));
+        printf("%f\t", t/pow(n,2));
+        printf("%f\t", t/pow(n,2.2));
+        printf("\n");
+    }
+}
+
 int main (int argc, char **argv){
     inicializar_semilla();
-    int n=10;
-    int v[n];
-    void(*fun_ord)(int,int);
+    
+    printf("INSERCION\n\n");
+    printf("descendente\n");
+    cotas(ord_ins, descendente);
+    printf("aleatorio\n");
+    cotas(ord_ins, aleatorio);
+    printf("ascendente\n");
+    cotas(ord_ins, ascendente);
 
-    aleatorio(v, n);
-    printf("aleatorio");
-    print_array(v, n);
-    printf("%d\n", test(v, n));
-
-    ord_ins(v, n);
-    printf("insercion");
-    print_array(v, n);
-    printf("%d\n", test(v, n));
-
-    aleatorio(v, n);
-    printf("aleatorio");
-    print_array(v, n);
-    printf("%d\n", test(v, n));
-
-    ord_shell(v, n);
-    printf("shell");
-    print_array(v, n);
-    printf("%d\n", test(v, n));
-
-    fun_ord=ord_ins;
-    tiempos(ord_ins,n);
+    printf("\nSHELL\n\n");
+    printf("descendente\n");
+    cotas(ord_shell, descendente);
+    printf("aleatorio\n");
+    cotas(ord_shell, aleatorio);
+    printf("ascendente\n");
+    cotas(ord_shell, ascendente);
 }
