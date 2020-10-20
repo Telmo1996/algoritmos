@@ -121,11 +121,16 @@ double tiempos(void (*fun_ord)(int[],int), int v[], int n){
     return t;
 }
 
-void cotas(void (*fun_ord)(int[],int), void (*init)(int[],int)){
+void cotas(
+    void (*fun_ord)(int[],int),
+    void (*init)(int[],int),
+    double potencias[3])
+{
     int n;
     double t;
 
-    printf("n\tt(n)\t\tt(n)/n^1.8\tt(n)/n^2\tt(n)/n^2.2\n");
+    printf("n\tt(n)\t\tt(n)/n^%4.2f\tt(n)/n^%4.2f\tt(n)/n^%4.2f\n",
+        potencias[0], potencias[1], potencias[2]);
     for(n=500; n<=32000; n*=2){
         int v[n];
         init(v, n);
@@ -133,29 +138,33 @@ void cotas(void (*fun_ord)(int[],int), void (*init)(int[],int)){
 
         printf("%d\t", n);
         printf("%f\t", t);
-        printf("%f\t", t/pow(n,1.8));
-        printf("%f\t", t/pow(n,2));
-        printf("%f\t", t/pow(n,2.2));
+        for (int i=0; i<3; i++)
+            printf("%f\t", t/pow(n, potencias[i]));
         printf("\n");
     }
 }
 
 int main (int argc, char **argv){
+    double potencias[3]={1.8, 2, 2.2};
     inicializar_semilla();
     
     printf("INSERCION\n\n");
     printf("descendente\n");
-    cotas(ord_ins, descendente);
+    cotas(ord_ins, descendente, potencias);
     printf("aleatorio\n");
-    cotas(ord_ins, aleatorio);
+    cotas(ord_ins, aleatorio, potencias);
     printf("ascendente\n");
-    cotas(ord_ins, ascendente);
+    //cotas(ord_ins, ascendente, potencias);
+
+    potencias[1]=1;
+    potencias[0]=potencias[1]-0.2;
+    potencias[2]=potencias[1]+0.2;
 
     printf("\nSHELL\n\n");
     printf("descendente\n");
-    cotas(ord_shell, descendente);
+    cotas(ord_shell, descendente, potencias);
     printf("aleatorio\n");
-    cotas(ord_shell, aleatorio);
+    cotas(ord_shell, aleatorio, potencias);
     printf("ascendente\n");
-    cotas(ord_shell, ascendente);
+    cotas(ord_shell, ascendente, potencias);
 }
