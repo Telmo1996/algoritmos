@@ -137,9 +137,9 @@ void cotas(
         t=tiempos(fun_ord, v, n);
 
         printf("%d\t", n);
-        printf("%f\t", t);
+        printf("%10.4f\t", t);
         for (int i=0; i<3; i++)
-            printf("%f\t", t/pow(n, potencias[i]));
+            printf("%10.8f\t", t/pow(n, potencias[i]));
         printf("\n");
     }
 }
