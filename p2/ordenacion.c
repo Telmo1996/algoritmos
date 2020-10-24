@@ -213,7 +213,10 @@ int main (int argc, char **argv){
     double potencias[3];
     inicializar_semilla();
     
+    printf("\nTiempos calculados en us.\n");
+
     printf("\nINSERCION\n\n");
+    printf("\t\t\tsubestimada\tajustada\tsobreestimada\n");
 
     printf("descendente\n");
     potencias[1]=1.8;
@@ -235,6 +238,7 @@ int main (int argc, char **argv){
 
 
     printf("\n\nSHELL\n\n");
+    printf("\t\t\tsubestimada\tajustada\tsobreestimada\n");
 
     printf("descendente\n");
     potencias[1]=1.1;
@@ -254,4 +258,5 @@ int main (int argc, char **argv){
     potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, ascendente, potencias);
 
+    printf("\n (*) Tiempos medidos con la media de 100 ejecuciones.\n");
 }
