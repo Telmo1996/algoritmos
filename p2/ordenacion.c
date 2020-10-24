@@ -95,6 +95,8 @@ double tiempos(void (*fun_ord)(int[],int), int v[], int n){
     int k=100, i;
     double t, ta, tb,t1,t2;
 
+    printf("%d\t", n);
+
     ta = microsegundos();
     fun_ord(v,n);
     tb = microsegundos();
@@ -102,6 +104,8 @@ double tiempos(void (*fun_ord)(int[],int), int v[], int n){
     t = tb - ta;
 
     if (t < 500.0){
+        printf("*");
+
         ta = microsegundos();
         for (i=0; i<k; i++){
             aleatorio(v,n);
@@ -116,6 +120,8 @@ double tiempos(void (*fun_ord)(int[],int), int v[], int n){
         tb=microsegundos();
         t2=tb-ta;
         t=(t1-t2)/k;
+    }else{
+        printf(" ");
     }
 
     return t;
@@ -136,7 +142,6 @@ void cotas(
         init(v, n);
         t=tiempos(fun_ord, v, n);
 
-        printf("%d\t", n);
         printf("%10.4f\t", t);
         for (int i=0; i<3; i++)
             printf("%10.8f\t", t/pow(n, potencias[i]));
@@ -150,21 +155,28 @@ int main (int argc, char **argv){
     
     printf("INSERCION\n\n");
     printf("descendente\n");
-    cotas(ord_ins, descendente, potencias);
+    //cotas(ord_ins, descendente, potencias);
     printf("aleatorio\n");
-    cotas(ord_ins, aleatorio, potencias);
+    //cotas(ord_ins, aleatorio, potencias);
     printf("ascendente\n");
     //cotas(ord_ins, ascendente, potencias);
 
-    potencias[1]=1;
-    potencias[0]=potencias[1]-0.2;
-    potencias[2]=potencias[1]+0.2;
-
     printf("\nSHELL\n\n");
     printf("descendente\n");
+    potencias[1]=1;
+    potencias[0]=potencias[1]-0.1;
+    potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, descendente, potencias);
+
     printf("aleatorio\n");
+    potencias[1]=1;
+    potencias[0]=potencias[1]-0.1;
+    potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, aleatorio, potencias);
+
     printf("ascendente\n");
+    potencias[1]=1;
+    potencias[0]=potencias[1]-0.1;
+    potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, ascendente, potencias);
 }
