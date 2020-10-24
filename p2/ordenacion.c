@@ -74,22 +74,6 @@ void descendente(int v[], int n){
     }
 }
 
-void print_array(int v[], int n){
-    printf("{%d", v[0]);
-    for (int i=1; i<n; i++){
-        printf(", %d", v[i]);
-    }
-    printf("}\n");
-}
-
-int test(int v[], int n){
-    for (int i=1; i<n; i++){
-        if(v[i-1] > v[i])
-            return 0;
-    }
-    return 1;
-}
-
 double tiempos(
     void (*fun_init)(int[],int),
     void (*fun_ord)(int[],int),
@@ -119,7 +103,7 @@ double tiempos(
         t1 = tb-ta;
         ta=microsegundos();
         for(i=0;i<k;i++){
-            aleatorio(v,n);
+            fun_init(v,n);
         }
         tb=microsegundos();
         t2=tb-ta;
@@ -153,27 +137,99 @@ void cotas(
     }
 }
 
+int esta_ordenado(int v[], int n){
+    for (int i=1; i<n; i++){
+        if(v[i-1] > v[i]){
+            printf("NO está ordenado.");
+            return 0;
+        }
+    }
+    printf("SI está ordenado.");
+    return 1;
+}
+
+void print_array(int v[], int n){
+    printf("{%d", v[0]);
+    for (int i=1; i<n; i++){
+        printf(", %d", v[i]);
+    }
+    printf("} ");
+    esta_ordenado(v, n);
+    printf("\n");
+}
+
+void test(){
+    int n=10;
+    int v[10];
+    
+    printf("Insercion ascendente:\n");
+    ascendente(v, n);
+    print_array(v, n);
+    ord_ins(v, n);
+    print_array(v, n);
+    printf("\n");
+
+    printf("Insercion aleatorio:\n");
+    aleatorio(v, n);
+    print_array(v, n);
+    ord_ins(v, n);
+    print_array(v, n);
+    printf("\n");
+
+    printf("Insercion descendente:\n");
+    descendente(v, n);
+    print_array(v, n);
+    ord_ins(v, n);
+    print_array(v, n);
+    printf("\n");
+
+    printf("Shell ascendente:\n");
+    ascendente(v, n);
+    print_array(v, n);
+    ord_shell(v, n);
+    print_array(v, n);
+    printf("\n");
+
+    printf("Shell aleatorio:\n");
+    aleatorio(v, n);
+    print_array(v, n);
+    ord_shell(v, n);
+    print_array(v, n);
+    printf("\n");
+
+    printf("Shell descendente:\n");
+    descendente(v, n);
+    print_array(v, n);
+    ord_shell(v, n);
+    print_array(v, n);
+    printf("\n");
+
+}
+
 int main (int argc, char **argv){
+    printf("Test:\n\n");
+    test();
+
     double potencias[3]={1.8, 2, 2.2};
     inicializar_semilla();
     
-    printf("INSERCION\n\n");
+    printf("\nINSERCION\n\n");
     printf("descendente\n");
-    //cotas(ord_ins, descendente, potencias);
+    cotas(ord_ins, descendente, potencias);
     printf("\naleatorio\n");
-    //cotas(ord_ins, aleatorio, potencias);
+    cotas(ord_ins, aleatorio, potencias);
     printf("\nascendente\n");
-    //cotas(ord_ins, ascendente, potencias);
+    cotas(ord_ins, ascendente, potencias);
 
     printf("\n\nSHELL\n\n");
     printf("descendente\n");
-    potencias[1]=1;
+    potencias[1]=1.1;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, descendente, potencias);
 
     printf("\naleatorio\n");
-    potencias[1]=1.07;
+    potencias[1]=1.2;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, aleatorio, potencias);
@@ -183,4 +239,5 @@ int main (int argc, char **argv){
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, ascendente, potencias);
+
 }
