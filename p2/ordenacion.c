@@ -90,7 +90,11 @@ int test(int v[], int n){
     return 1;
 }
 
-double tiempos(void (*fun_ord)(int[],int), int v[], int n){
+double tiempos(
+    void (*fun_init)(int[],int),
+    void (*fun_ord)(int[],int),
+    int v[], int n)
+{
 
     int k=100, i;
     double t, ta, tb,t1,t2;
@@ -108,7 +112,7 @@ double tiempos(void (*fun_ord)(int[],int), int v[], int n){
 
         ta = microsegundos();
         for (i=0; i<k; i++){
-            aleatorio(v,n);
+            fun_init(v,n);
             fun_ord(v,n);
         }
         tb = microsegundos();
@@ -129,7 +133,7 @@ double tiempos(void (*fun_ord)(int[],int), int v[], int n){
 
 void cotas(
     void (*fun_ord)(int[],int),
-    void (*init)(int[],int),
+    void (*fun_init)(int[],int),
     double potencias[3])
 {
     int n;
@@ -139,8 +143,8 @@ void cotas(
         potencias[0], potencias[1], potencias[2]);
     for(n=500; n<=32000; n*=2){
         int v[n];
-        init(v, n);
-        t=tiempos(fun_ord, v, n);
+        fun_init(v, n);
+        t=tiempos(fun_init, fun_ord, v, n);
 
         printf("%10.4f\t", t);
         for (int i=0; i<3; i++)
@@ -156,26 +160,26 @@ int main (int argc, char **argv){
     printf("INSERCION\n\n");
     printf("descendente\n");
     //cotas(ord_ins, descendente, potencias);
-    printf("aleatorio\n");
+    printf("\naleatorio\n");
     //cotas(ord_ins, aleatorio, potencias);
-    printf("ascendente\n");
+    printf("\nascendente\n");
     //cotas(ord_ins, ascendente, potencias);
 
-    printf("\nSHELL\n\n");
+    printf("\n\nSHELL\n\n");
     printf("descendente\n");
     potencias[1]=1;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, descendente, potencias);
 
-    printf("aleatorio\n");
-    potencias[1]=1;
+    printf("\naleatorio\n");
+    potencias[1]=1.07;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, aleatorio, potencias);
 
-    printf("ascendente\n");
-    potencias[1]=1;
+    printf("\nascendente\n");
+    potencias[1]=1.15;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, ascendente, potencias);
