@@ -210,18 +210,32 @@ int main (int argc, char **argv){
     printf("Test:\n\n");
     test();
 
-    double potencias[3]={1.8, 2, 2.2};
+    double potencias[3];
     inicializar_semilla();
     
     printf("\nINSERCION\n\n");
+
     printf("descendente\n");
+    potencias[1]=1.8;
+    potencias[0]=potencias[1]-0.1;
+    potencias[2]=potencias[1]+0.1;
     cotas(ord_ins, descendente, potencias);
+
     printf("\naleatorio\n");
+    potencias[1]=2;
+    potencias[0]=potencias[1]-0.1;
+    potencias[2]=potencias[1]+0.1;
     cotas(ord_ins, aleatorio, potencias);
+
+    potencias[1]=1;
+    potencias[0]=potencias[1]-0.1;
+    potencias[2]=potencias[1]+0.1;
     printf("\nascendente\n");
     cotas(ord_ins, ascendente, potencias);
 
+
     printf("\n\nSHELL\n\n");
+
     printf("descendente\n");
     potencias[1]=1.1;
     potencias[0]=potencias[1]-0.1;
