@@ -253,7 +253,7 @@ int main (int argc, char **argv){
     cotas(ord_shell, aleatorio, potencias);
 
     printf("\nascendente\n");
-    potencias[1]=1.15;
+    potencias[1]=1.12;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, ascendente, potencias);
