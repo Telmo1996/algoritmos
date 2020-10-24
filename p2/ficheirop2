@@ -1,7 +1,7 @@
 INFORME P2 ALGORTIMOS: Ordenación por inserción y ordenacion shell.
 Autores: Telmo Fernández Corujo, Anna Taboada Pardiñas y Andrés Pérez Comesaña.
 
-En esta práctica vamos a implementar dos algoritmos de ordenación (sell e inserción) que van a operar sobre un vector v. Así mismo con una función test vamos a comprobar su correcto funcionamiento. Además vamos a obtener sus tiempos de ejecución en base al vector v que es un vector con valores int aleatorios generados con la función "aleatorio()", este vector v va a tener diferentes tamaños y situaciones(el vector ya está ordenado en orden ascendente, el vector ya está ordenado pero en orden descendente y el vector está inicialmente desordenado).
+En esta práctica vamos a implementar dos algoritmos de ordenación (sell e inserción) que van a operar sobre un vector v. Así mismo con una función test vamos a comprobar su correcto funcionamiento. Además vamos a obtener sus tiempos de ejecución en base al vector v que es un vector con valores int aleatorios generados con la función "aleatorio()", este vector v va a tener diferentes tamaños y situaciones(el vector ya está ordenado en orden ascendente(MEJOR CASO), el vector ya está ordenado pero en orden descendente(PEOR CASO) y el vector está inicialmente desordenado(CASO INTERMEDIO)).
 
 Las especificaciones de la máquina que vamos a utilizar son las siguientes:
 OS: Ubuntu 18.04.5 LTS x86_64 
@@ -24,6 +24,181 @@ GPU: NVIDIA GeForce GTX 1050 Mobile
 Memory: 2371MiB / 7880MiB
 
 Las unidades de tiempo utilizadas en esta práctica son los microsegundos (us).
+
+******************************************************************************************************************************************************************************************************************
+ORDENACION SHELL
+
+Este algoritmo recorre el vector, la primera vez de la mitad hasta el final, luego, la mitad de dicha mitad y asi sucesivamente hasta llegar a n.
+Esto lo hará siempre, asi que la complejidad se verá afectada si tiene que hacer cambios en el vector para ordenarlo. La implementación es la siguiente:
+
+void ord_shell(int v[], int n){
+    int i, tmp, j, seguir;
+    int incremento = n;
+    while(1){
+        incremento = incremento / 2;
+        for (i=incremento; i<n; i++){
+            tmp = v[i];
+            j = i;
+            seguir = 1;
+            while (j-incremento > -1 && seguir){
+                if (tmp < v[j-incremento]){
+                    v[j] = v[j-incremento];
+                    j = j-incremento;
+                }else{
+                    seguir = 0;
+                }
+            }
+            v[j] = tmp;
+        }
+    
+        if(incremento == 1) break;
+    }
+}
+
+CASO ASCENDENTE (MEJOR CASO)
+La complejidad en este caso sería n^1.12
+Las cotas subestimada, ajustada y sobreestimada son:
+	f(n)=n^1.02;
+	g(n)=n^1.12; 
+	h(n)=n^1.22;
+La progresión geométrica es *2.
+El programa nos muestra por pantalla:
+
+n	t(n)		t(n)/n^1.02	t(n)/n^1.12	t(n)/n^1.22
+500	*   16.6800	0.02946094	0.01582522	0.00850066	
+1000	*   37.2200	0.03241726	0.01624712	0.00814285	
+2000	*   84.7300	0.03639038	0.01701702	0.00795757	
+4000	*  190.3200	0.04030726	0.01758641	0.00767311	
+8000	*  424.9500	0.04437987	0.01806663	0.00735475	
+16000	   887.0000	0.04567949	0.01735039	0.00659018	
+32000	  2013.0000	0.05111999	0.01811656	0.00642038			
+
+
+
+CASO DESCENDENTE (PEOR CASO)
+La comlejidad en este caso sería n^1.10.
+Las cotas subestimada, ajustada y sobreestimada son:
+	f(n)=n^1.00;
+	g(n)=n^1.10; 
+	h(n)=n^1.20;
+
+La progresión geométrica es *2.
+El programa nos muestra por pantalla:
+
+descendente
+n	t(n)		t(n)/n^1.00	t(n)/n^1.10	t(n)/n^1.20
+500	*   24.7300	0.04946000	0.02656789	0.01427119	
+1000	*   51.3500	0.05135000	0.02573596	0.01289854	
+2000	*  119.8600	0.05993000	0.02802472	0.01310504	
+4000	*  264.3600	0.06609000	0.02883565	0.01258125	
+8000	   621.0000	0.07762500	0.03160040	0.01286422	
+16000	  1353.0000	0.08456250	0.03011928	0.01219983	
+32000	  2648.0000	0.08275000	0.02932601	0.01039293		
+
+CASO ALEATORIO (CASO INTERMEDIO)
+La comlejidad en este caso sería n^1.20.
+Las cotas subestimada, ajustada y sobreestimada son:
+	f(n)=n^1.10;
+	g(n)=n^1.20; 
+	h(n)=n^1.30;
+La progresión geométrica es *2.
+El programa nos muestra por pantalla:
+n	t(n)		t(n)/n^1.10	t(n)/n^1.20	t(n)/n^1.30
+500	*   58.0500	0.06236418	0.03349949	0.01799456	
+1000	*  136.4000	0.06836194	0.03426213	0.01717174	
+2000	*  313.1500	0.07321826	0.03423863	0.01601081	
+4000	   706.0000	0.07700851	0.03359949	0.01465976	
+8000	  1642.0000	0.08355533	0.03401458	0.01384702	
+16000	  3607.0000	0.08562768	0.03252387	0.01235350	
+32000	  8386.0000	0.09287309	0.03291356	0.01166433		
+
+******************************************************************************************************************************************************************************************************************
+ORDENACIÓN POR INSERCIÓN
+Este algoritmo consiste en ir comparando dos a dos viendo cual es mayor, si el de la izquierda es mayor se intercambia por el de su derecha y así sucesivamente, cumpliendo las condiciones aplicadas en esta implementación.
+
+void ord_ins(int v[], int n){
+    int i, x, j;
+
+    for (i=1; i<n; i++){
+        x = v[i];
+        j = i-1;
+        while(j>-1 && v[j]>=x){
+            v[j+1] = v[j];
+            j = j-1;
+        }
+        v[j+1] = x;
+    }
+}
+
+CASO ASCENDENTE
+La compejidad en este caso sería n^1.00.
+Las cotas subestimada, ajustada y sobreestimada son:
+	f(n)=n^0.90;
+	g(n)=n^1.00; 
+	h(n)=n^1.10;
+La progresión geométrica es *2.
+El programa nos muestra por pantalla:
+
+n	t(n)		t(n)/n^0.90	t(n)/n^1.00	t(n)/n^1.10
+500	*    2.2100	0.00822847	0.00442000	0.00237424	
+1000	*    4.6500	0.00927797	0.00465000	0.00233052	
+2000	*    8.4200	0.00900296	0.00421000	0.00196870	
+4000	*   14.1300	0.00809633	0.00353250	0.00154126	
+8000	*   30.3300	0.00931304	0.00379125	0.00154338	
+16000	*   60.2100	0.00990742	0.00376312	0.00142934	
+32000	*  120.2500	0.01060352	0.00375781	0.00133174
+
+CASO DESCENDENTE
+La compejidad en este caso sería n^1.80.
+Las cotas subestimada, ajustada y sobreestimada son:
+	f(n)=n^1.70;
+	g(n)=n^1.80; 
+	h(n)=n^1.90;
+La progresión geométrica es *2.
+El programa nos muestra por pantalla:
+
+n	t(n)		t(n)/n^1.70	t(n)/n^1.80	t(n)/n^1.90
+500	  1393.0000	0.03595027	0.01931102	0.01037309	
+1000	  4886.0000	0.03881088	0.01945152	0.00974885	
+2000	 18778.0000	0.04590905	0.02146819	0.01003904	
+4000	 29293.0000	0.02204255	0.00961736	0.00419614	
+8000	 91746.0000	0.02124879	0.00865018	0.00352141	
+16000	 356548.0000	0.02541640	0.00965388	0.00366682	
+32000	 1415212.0000	0.03105035	0.01100402	0.00389975
+
+
+CASO ALEATORIO
+La compejidad en este caso sería n^1.80.
+Las cotas subestimada, ajustada y sobreestimada son:
+	f(n)=n^1.90;
+	g(n)=n^2.00; 
+	h(n)=n^2.10;
+La progresión geométrica es *2.
+El programa nos muestra por pantalla:
+n	t(n)		t(n)/n^1.90	t(n)/n^2.00	t(n)/n^2.10
+500	*  179.0100	0.00133301	0.00071604	0.00038463	
+1000	   741.0000	0.00147849	0.00074100	0.00037138	
+2000	  3088.0000	0.00165090	0.00077200	0.00036101	
+4000	 11342.0000	0.00162471	0.00070887	0.00030929	
+8000	 45363.0000	0.00174113	0.00070880	0.00028854	
+16000	 181469.0000	0.00186627	0.00070886	0.00026925	
+32000	 708474.0000	0.00195227	0.00069187	0.00024519	
+
+******************************************************************************************************************************************************************************************
+CONCLUSIÓN:
+
+En el caso de estos algoritmos obtenemos mejores tiempos con el vector ordenado ascendentemente, después con el aleatorio y por último con el descendente. Esto es debido a la cantidad de iteraciones que el algoritmo debe hacer en cada uno de los casos.
+
+Este estudio nos da mas información sobre lo importante que es un algoritmo y que para bajar tiempos de ejecución lo mejor es invertir en realizar un algoritmo pensado para los peores y los casos mas probables ya que son en estos en los cuales los tiempos se nos pueden disparar.
+
+Si los comparamos podemos ver que el algoritmo de inserción es más rápido en el mejor caso pero en los demás es más rápido el shell. Esto nos podría indicar que una "mezcla" de ambos nos podría dar como resultado un algorimo mucho más rápido para el conjunto de los casos.
+
+
+
+
+
+
+
 
 
 
