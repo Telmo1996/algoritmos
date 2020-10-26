@@ -1,3 +1,5 @@
+/*Autores: Telmo Fernandez Corujo, Anna Taboada Pardiñas y Andrés Pérez Comesaña*/
+
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
