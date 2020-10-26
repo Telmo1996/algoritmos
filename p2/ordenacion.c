@@ -219,7 +219,7 @@ int main (int argc, char **argv){
     printf("\t\t\tsubestimada\tajustada\tsobreestimada\n");
 
     printf("descendente\n");
-    potencias[1]=1.8;
+    potencias[1]=2;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ord_ins, descendente, potencias);
@@ -241,7 +241,7 @@ int main (int argc, char **argv){
     printf("\t\t\tsubestimada\tajustada\tsobreestimada\n");
 
     printf("descendente\n");
-    potencias[1]=1.1;
+    potencias[1]=1.12;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ord_shell, descendente, potencias);
