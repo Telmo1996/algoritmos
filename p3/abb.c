@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 
 struct nodo{
 	int elem;
@@ -5,7 +8,7 @@ struct nodo{
 	struct nodo *izq, *der;	
 };
 
-typedef struct nodo *posición;
+typedef struct nodo *posicion;
 typedef struct nodo *arbol;
 
 
@@ -32,4 +35,57 @@ arbol insertar(int e, arbol a){
 	else
 		a->num_repeticiones++;
 	return a;
+}
+
+arbol creararbol(){
+	return NULL;
+}
+
+int esarbolvacio(arbol a){
+	return a == NULL;
+}
+
+posicion buscar(int i, arbol a){
+	while(i != a->elem){
+		if(i < a->elem){
+			return buscar(i, a->izq);
+		}else if(i > a->elem){
+			return buscar(i, a->der);
+		}else{
+			return a;
+		}
+	}
+
+	return NULL;
+}
+
+void imprimir(arbol a){
+	char *i, *d;
+
+	if(!esarbolvacio){
+		if(a->izq != NULL)
+			i=a->izq;
+		else
+			i="";
+		if(a->der != NULL)
+			d=a->der;
+		else
+			d="";
+
+		printf("(");
+	}
+}
+
+int main(int argc, char **argv){
+	arbol a;
+
+	a=creararbol();
+
+	a=insertar(1, a);
+	a=insertar(2, a);
+	a=insertar(4, a);
+	a=insertar(3, a);
+	a=insertar(7, a);
+	a=insertar(4, a);
+	
 }
