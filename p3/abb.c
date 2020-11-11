@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 
 struct nodo{
@@ -59,21 +60,24 @@ posicion buscar(int i, arbol a){
 	return NULL;
 }
 
-void imprimir(arbol a){
-	char *i, *d;
-
-	if(!esarbolvacio){
+char* imprimir(arbol a){
+	char i[256], e[256], d[256];
+	static char buff[256] = "";
+	
+	if(!esarbolvacio(a)){
+		sprintf(e, "%d", a->elem);
 		if(a->izq != NULL)
-			i=a->izq;
+			sprintf(i, "(%s)", imprimir(a->izq));
 		else
-			i="";
+			sprintf(i, " ");
 		if(a->der != NULL)
-			d=a->der;
+			sprintf(d, "(%s)", imprimir(a->der));
 		else
-			d="";
-
-		printf("(");
+			sprintf(d, " ");
+		
+		sprintf(buff, "%s %s %s", i, e,d);
 	}
+	return buff;
 }
 
 int main(int argc, char **argv){
@@ -81,11 +85,14 @@ int main(int argc, char **argv){
 
 	a=creararbol();
 
+	a=insertar(3, a);
 	a=insertar(1, a);
 	a=insertar(2, a);
 	a=insertar(4, a);
 	a=insertar(3, a);
 	a=insertar(7, a);
 	a=insertar(4, a);
+
+	printf("%s\n", imprimir(a));
 	
 }
