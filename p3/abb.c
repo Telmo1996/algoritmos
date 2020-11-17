@@ -302,6 +302,8 @@ void cotas(
             printf("%10.8f\t", t/pow(n, potencias[i]));
         printf("\n");
     }
+
+	eliminararbol(a);
 }
 
 int main(int argc, char **argv){
