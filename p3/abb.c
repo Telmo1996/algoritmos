@@ -1,6 +1,11 @@
+/*Autores: Telmo Fernandez Corujo, Anna Taboada Pardiñas y Andrés Pérez Comesaña*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <sys/time.h>
+#include <math.h>
 
 
 struct nodo{
@@ -13,9 +18,27 @@ typedef struct nodo *posicion;
 typedef struct nodo *arbol;
 
 
+double microsegundos() {
+    struct timeval t;
+    if (gettimeofday(&t, NULL) < 0 )
+        return 0.0;
+    return (t.tv_usec + t.tv_sec * 1000000.0);
+}
+
 int max(int a, int b){
 	if(a>b) return a;
 	else return b;
+}
+
+void inicializar_semilla(){
+    srand(time(NULL));
+}
+
+void aleatorio(int v[], int n){  //se generan números pseudoaleatorio entre -n y +n
+    int i, m=2*n+1;
+    for(i=0;i<n;i++){
+        v[i]=(rand() %m)-n;
+    }
 }
 
 static struct nodo *crearnodo(int e){
@@ -52,25 +75,31 @@ int esarbolvacio(arbol a){
 }
 
 posicion buscar(int i, arbol a){
-	if(i < a->elem){
-		return buscar(i, a->izq);
-	}else if(i > a->elem){
-		return buscar(i, a->der);
+	if(a != NULL){
+		if(i < a->elem){
+			return buscar(i, a->izq);
+		}else if(i > a->elem){
+			return buscar(i, a->der);
+		}else{
+			return a;
+		}
 	}else{
-		return a;
+		return NULL;
 	}
 }
 
 arbol eliminararbol(arbol a){
-	if(a->izq != NULL){
-		eliminararbol(a->izq);
-		a->izq = NULL;
+	if(a != NULL){
+		if(a->izq != NULL){
+			eliminararbol(a->izq);
+			a->izq = NULL;
+		}
+		if(a->der != NULL){
+			eliminararbol(a->der);
+			a->der = NULL;
+		}
+		free(a);
 	}
-	if(a->der != NULL){
-		eliminararbol(a->der);
-		a->der = NULL;
-	}
-	free(a);
 	return NULL;
 }
 
@@ -171,8 +200,127 @@ void test(){
 
 }
 
+double tiemposInsercion(arbol a, int n)
+{
+
+    int k=100, i, j;
+    double t, ta, tb,t1,t2;
+	int v[n];
+
+	aleatorio(v, n);
+
+    printf("%d\t", n);
+
+    ta = microsegundos();
+	for(i=0; i<n; i++){
+		a=insertar(v[i], a);
+	}
+    tb = microsegundos();
+	a=eliminararbol(a);
+
+    t = tb - ta;
+
+    if (t < 500.0){
+        printf("*");
+
+        ta = microsegundos();
+        for (i=0; i<k; i++){
+			aleatorio(v, n);
+			for(j=0; j<n; j++){
+				a=insertar(v[j], a);
+			}
+			a=eliminararbol(a);
+        }
+        tb = microsegundos();
+        t1 = tb-ta;
+        ta=microsegundos();
+        for(i=0;i<k;i++){
+			aleatorio(v, n);
+        }
+        tb=microsegundos();
+        t2=tb-ta;
+        t=(t1-t2)/k;
+    }else{
+        printf(" ");
+    }
+
+    return t;
+}
+
+double tiemposBusqueda(arbol a, int n){
+
+    int k=100, i, j;
+    double t, ta, tb;
+	int v[n];
+
+	aleatorio(v, n);
+	for(i=0; i<n; i++){
+		a=insertar(v[i], a);
+	}
+	aleatorio(v, n);
+
+    printf("%d\t", n);
+
+    ta = microsegundos();
+	for(i=0; i<n; i++){
+		buscar(v[i], a);
+	}
+    tb = microsegundos();
+
+    t = tb - ta;
+
+    if (t < 500.0){
+        ta = microsegundos();
+        for (i=0; i<k; i++){
+			for(j=0; j<n; j++){
+				buscar(v[k], a);	
+			}
+        }
+        tb = microsegundos();
+        t = (tb-ta)/k;
+        printf("*");
+    }
+
+    return t;
+}
+
+void cotas(
+    double (*fun_tiempos)(arbol, int),
+    double potencias[3])
+{
+    int n;
+    double t;
+	arbol a=creararbol();
+
+    printf("n\tt(n)\t\tt(n)/n^%4.2f\tt(n)/n^%4.2f\tt(n)/n^%4.2f\n",
+        potencias[0], potencias[1], potencias[2]);
+    for(n=8000; n<=1024000; n*=2){
+        t=fun_tiempos(a, n);
+
+        printf("%10.4f\t", t);
+        for (int i=0; i<3; i++)
+            printf("%10.8f\t", t/pow(n, potencias[i]));
+        printf("\n");
+    }
+}
+
 int main(int argc, char **argv){
+	double potencias[3];
 	test();
 
+	inicializar_semilla();
+	
+	printf("Insercion:\n");
+    potencias[1]=1;
+    potencias[0]=potencias[1]-0.1;
+    potencias[2]=potencias[1]+0.1;
+    cotas(tiemposInsercion, potencias);
+
+	printf("\n\n");
+	printf("Busqueda:\n");
+    potencias[1]=1;
+    potencias[0]=potencias[1]-0.1;
+    potencias[2]=potencias[1]+0.1;
+    cotas(tiemposBusqueda, potencias);
 	
 }
