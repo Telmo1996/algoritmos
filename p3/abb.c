@@ -47,17 +47,13 @@ int esarbolvacio(arbol a){
 }
 
 posicion buscar(int i, arbol a){
-	while(i != a->elem){
-		if(i < a->elem){
-			return buscar(i, a->izq);
-		}else if(i > a->elem){
-			return buscar(i, a->der);
-		}else{
-			return a;
-		}
+	if(i < a->elem){
+		return buscar(i, a->izq);
+	}else if(i > a->elem){
+		return buscar(i, a->der);
+	}else{
+		return a;
 	}
-
-	return NULL;
 }
 
 char* imprimir(arbol a){
@@ -80,6 +76,8 @@ char* imprimir(arbol a){
 	return buff;
 }
 
+
+
 int main(int argc, char **argv){
 	arbol a;
 
@@ -94,5 +92,7 @@ int main(int argc, char **argv){
 	a=insertar(4, a);
 
 	printf("%s\n", imprimir(a));
+	printf("%s\n", imprimir(buscar(4, a)));
+
 	
 }
