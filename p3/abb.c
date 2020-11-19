@@ -314,6 +314,9 @@ int main(int argc, char **argv){
 	test();
 
 	inicializar_semilla();
+
+	printf("\nTiempos medidos en microsegundos (us)\n");
+	printf("* Indica que el tiempo se ha calculado con la media de 100 ejecuciones.\n\n");
 	
 	printf("Insercion:\n");
 	printf("\t\t\tSubestimada\tAjustada\tSobrestimada\n");
