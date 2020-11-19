@@ -205,7 +205,7 @@ double tiemposInsercion(arbol a, int n)
 
     int k=100, i, j;
     double t, ta, tb,t1,t2;
-	int v[n];
+	int *v = (int *) malloc(n *sizeof(int));
 
 	aleatorio(v, n);
 
@@ -244,6 +244,7 @@ double tiemposInsercion(arbol a, int n)
         printf(" ");
     }
 
+	free(v);
     return t;
 }
 
@@ -251,7 +252,7 @@ double tiemposBusqueda(arbol a, int n){
 
     int k=100, i, j;
     double t, ta, tb;
-	int v[n];
+	int *v = (int *) malloc(n *sizeof(int));
 
 	aleatorio(v, n);
 	for(i=0; i<n; i++){
@@ -281,6 +282,8 @@ double tiemposBusqueda(arbol a, int n){
         printf("*");
     }
 
+	a=eliminararbol(a);
+	free(v);
     return t;
 }
 
@@ -294,7 +297,7 @@ void cotas(
 
     printf("n\tt(n)\t\tt(n)/n^%4.2f\tt(n)/n^%4.2f\tt(n)/n^%4.2f\n",
         potencias[0], potencias[1], potencias[2]);
-    for(n=8000; n<=1024000; n*=2){
+    for(n=8000; n<=512000; n*=2){
         t=fun_tiempos(a, n);
 
         printf("%10.4f\t", t);
@@ -313,14 +316,16 @@ int main(int argc, char **argv){
 	inicializar_semilla();
 	
 	printf("Insercion:\n");
-    potencias[1]=1;
+	printf("\t\t\tSubestimada\tAjustada\tSobrestimada\n");
+    potencias[1]=1.25;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(tiemposInsercion, potencias);
 
 	printf("\n\n");
 	printf("Busqueda:\n");
-    potencias[1]=1;
+	printf("\t\t\tSubestimada\tAjustada\tSobrestimada\n");
+    potencias[1]=1.3;
     potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(tiemposBusqueda, potencias);
