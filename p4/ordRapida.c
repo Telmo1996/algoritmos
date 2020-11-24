@@ -2,17 +2,15 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "time.h"
 
 void inicializar_semilla(){
     srand(time(NULL));
 }
 
-void aleatorio(int n1, int n2){  //se generan números pseudoaleatorio entre -n y +n
-    int i, m=2*n+1;
-    for(i=0;i<n;i++){
-        v[i]=(rand() %m)-n;
-    }
+int  aleatorio(int izq, int der){  //se generan números pseudoaleatorio entre -n y +n
+    int i, n;
+    return izq + rand() / (RAND_MAX /der-izq)+izq;
 }
 
 void intercambiar(int v[], int n1, int n2){
@@ -21,7 +19,7 @@ void intercambiar(int v[], int n1, int n2){
 	v[n2]=aux;
 }
 
-void ord_ins(int v[], int n){
+void ord_ins(int v[], int n, int UMBRAL){
     int i, x, j;
 
     for (i=1; i<n; i++){
@@ -35,8 +33,7 @@ void ord_ins(int v[], int n){
     }
 }
 
-void ord_aux(int v[], int izq, int der, int UMBRAL){
-	int x, pivote, i, j;
+void ord_aux(int v[], int izq, int der){
 	if(izq+UMBRAL <= der){
 		x = aleatorio();
 		pivote = v[x];
@@ -64,4 +61,10 @@ void ord_rapida(int v[], int n, int UMBRAL){
 	ord_aux(v, 1, n, UMBRAL); //TODO esto fijo que peta
 	if(UMBRAL > 1)
 		ord_ins(v, n);
+}
+int main(){
+    int a;
+    inicializar_semilla();
+    a=aleatorio(1,5);
+    printf("%d\n",a);
 }
