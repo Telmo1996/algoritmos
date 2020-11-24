@@ -1,0 +1,142 @@
+INFORME P3 ALGORITMOS: Árboles binarios de búsqueda.
+Autores: Telmo Fernández Corujo, Anna Taboada Pardiñas y Andrés Pérez Comesaña.
+
+En esta práctica vamos a implementar las funciones de un árbol binario de búsqueda (insertar, 
+crearArbol, esArbolVacio, buscar, eliminarArbol, hijoDerecho, hijoIzquierdo,elemento, numeroDeRepeticiones,
+altura y visualizar) y vamos a medir el tiempo de ejecución de las funciones buscar e insertar(proporcionada
+en el enunciado).
+
+
+Las especificaciones de la máquina que vamos a utilizar son las siguientes:
+OS: Ubuntu 18.04.5 LTS x86_64 
+Host: GL62M 7RDX REV:1.0 
+Kernel: 5.4.0-48-generic 
+Uptime: 4 hours, 15 mins 
+Packages: 1922 
+Shell: bash 4.4.20 
+Resolution: 1920x1080 
+DE: MATE 
+WM: Metacity (Marco) 
+WM Theme: Radiant-MATE-Aqua 
+Theme: Radiant-MATE-Aqua [GTK2/3] 
+Icons: Radiant-MATE-Aqua [GTK2/3] 
+Terminal: mate-terminal 
+Terminal Font: Ubuntu Mono 13 
+CPU: Intel i5-7300HQ (4) @ 3.500GHz 
+GPU: Intel Integrated Graphics 
+GPU: NVIDIA GeForce GTX 1050 Mobile 
+Memory: 2371MiB / 7880MiB
+
+Las unidades de tiempo utilizadas en esta práctica son los microsegundos (us).
+
+****************************************************************************************************************************************************************************************************************
+ALGORITMO BUSCAR: este algoritmo nos devuelve el nodo donde está el elemento que le hemos pasado junto
+con el árbol y devuelve NULL si no está en el árbol.
+
+posicion buscar(int i, arbol a){
+	if(a != NULL){
+		if(i < a->elem){
+			return buscar(i, a->izq);
+		}else if(i > a->elem){
+			return buscar(i, a->der);
+		}else{
+			return a;
+		}
+	}else{
+		return NULL;
+	}
+}
+
+La complejidad en este caso sería n^1.30
+Las cotas subestimada, ajustada y sobreestimada son:
+	f(n)=n^1.20;
+	g(n)=n^1.30; 
+	h(n)=n^1.40;
+La progresión geométrica es *2.
+La constante a la que tiende la sucesión de la cota ajustada es 0.0115.
+El programa nos muestra por pantalla:
+
+			                Subestimada	    Ajustada	    Sobrestimada
+n	        t(n)		    t(n)/n^1.20	    t(n)/n^1.30	    t(n)/n^1.40
+8000	    1312.0000	    0.02717852	    0.01106412	    0.00450410	
+16000	    3411.0000	    0.03075656	    0.01168223	    0.00443725	
+32000	    8249.0000	    0.03237586	    0.01147378	    0.00406622	
+64000	    19629.0000	    0.03353376	    0.01108828	    0.00366645	
+128000	    47424.0000	    0.03526519	    0.01087991	    0.00335664	
+256000	    124859.0000	    0.04041401	    0.01163343	    0.00334876	
+512000	    347538.0000	    0.04896416	    0.01315078	    0.00353203	
+
+
+
+
+****************************************************************************************************************************************************************************************************************
+ALGORITMO INSERTAR: este algoritmo nos devuelve el el árbol con el elemento insertado.
+
+arbol insertar(int e, arbol a){
+	if (a == NULL)
+		return crearnodo(e);
+	else if (e < a->elem)
+		a->izq = insertar (e, a->izq);
+	else if (e> a->elem)
+		a->der = insertar (e, a->der);
+	else
+		a->num_repeticiones++;
+	return a;
+}
+
+La complejidad en este caso sería n^1.25
+Las cotas subestimada, ajustada y sobreestimada son:
+	f(n)=n^1.15;
+	g(n)=n^1.25; 
+	h(n)=n^1.35;
+La progresión geométrica es *2.
+La constante a la que tiende la sucesión de la cota ajustada es 0.021.
+El programa nos muestra por pantalla:
+
+			                Subestimada	    Ajustada	    Sobrestimada
+n	      t(n)		        t(n)/n^1.15	    t(n)/n^1.25	    t(n)/n^1.35
+8000	  1748.0000	        0.05675288	    0.02310356	    0.00940524	
+16000	  3707.0000 	    0.05423562	    0.02060026	    0.00782457	
+32000	  7996.0000	        0.05271695	    0.01868251	    0.00662095	
+64000	 20052.0000	        0.05957317	    0.01969848	    0.00651350	
+128000	 62650.0000	        0.08387444	    0.02587668	    0.00798339	
+256000	 113133.0000	    0.06825168	    0.01964669	    0.00565543	
+512000	 295075.0000	    0.08021802	    0.02154492	    0.00578653	
+
+***********************************************************************************************************************************************************************************************************************
+MEDICIONES ANÓMALAS:
+En el caso de la inserción no obtener el tiempo de borrado por separado en el caso
+de t<500ms (debido a que ya se ha borrado el árbol en el primer bucle y no se puede
+volver a borrar en el siguiente) por lo que hemos seleccionado n lo suficientemente
+grandes para que no se produzca este caso.
+
+************************************************************************************************************************************************************************************************************************
+CONCLUSIONES:
+En esta práctica, a difererncia de las anteriores hemos tenido que solucionar perdidas
+de memoria esto es debido a que el borrado del árbol estaba fuera de la función donde lo
+modificabamos. 
+Hemos comprobado que la complejidad de insertar es un poco menor que la de buscar aunque, al
+contrario de las prácticas anteriores donde teniamos diferentes implementaciones de la misma 
+función, no tiene mucho sentido compararlas entre sí ya que realizan procesos distintos en
+el árbol binario.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
