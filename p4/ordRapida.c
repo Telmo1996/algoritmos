@@ -2,19 +2,17 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "time.h"
 
 void inicializar_semilla(){
     srand(time(NULL));
 }
 
-void aleatorio(int n1, int n2){  //se generan números pseudoaleatorio entre -n y +n
-    int i, m=2*n+1;
-    for(i=0;i<n;i++){
-        v[i]=(rand() %m)-n;
-    }
+int  aleatorio(int izq, int der){  //se generan números pseudoaleatorio entre -n y +n
+    int i, n;
+    return izq + rand() / (RAND_MAX /der-izq)+izq;
 }
-
+/*
 void ord_ins(int v[], int n, int UMBRAL){
     int i, x, j;
 
@@ -28,9 +26,17 @@ void ord_ins(int v[], int n, int UMBRAL){
         v[j+1] = x;
     }
 }
-
+*/
+/*
 void ord_aux(int v[], int izq, int der){
 	if(izq+UMBRAL <= der){
 		x = aleatorio() 
 	}
+}
+*/
+int main(){
+    int a;
+    inicializar_semilla();
+    a=aleatorio(1,5);
+    printf("%d\n",a);
 }
