@@ -1,0 +1,39 @@
+INFORME P4 ALGORITMOS: Ordenación rápida
+Auotores: Telmo Fernández Corujo, Anna Taboada Pardiñas y Andrés Pérez Comesaña.
+
+En esta práctica vamos a implementar la función de Ordenación rápida (Quicksort)
+y vamos a comparar los tiempos de ejecución resultantes al ordenar vectores con
+distintas situaciones iniciales(vector ordenado ascendentemente, vector ordenado
+descendentemente y un vector desordenado), así mismo los vectores deberán tener 
+distintos tamaños y ubrales(1, 10 y 100).
+
+Las especificaciones de la máquina que vamos a utilizar son las siguientes:
+OS: Ubuntu 18.04.5 LTS x86_64 
+Host: GL62M 7RDX REV:1.0 
+Kernel: 5.4.0-48-generic 
+Uptime: 4 hours, 15 mins 
+Packages: 1922 
+Shell: bash 4.4.20 
+Resolution: 1920x1080 
+DE: MATE 
+WM: Metacity (Marco) 
+WM Theme: Radiant-MATE-Aqua 
+Theme: Radiant-MATE-Aqua [GTK2/3] 
+Icons: Radiant-MATE-Aqua [GTK2/3] 
+Terminal: mate-terminal 
+Terminal Font: Ubuntu Mono 13 
+CPU: Intel i5-7300HQ (4) @ 3.500GHz 
+GPU: Intel Integrated Graphics 
+GPU: NVIDIA GeForce GTX 1050 Mobile 
+Memory: 2371MiB / 7880MiB
+
+Las unidades de tiempo utilizadas son los microsegundos (us).
+
+*********************************************************************************
+ALGORIMO DE ORDENACIÓN RÁPIDA (QUICKSORT): este algoritmo tabaja de la siguiente 
+forma: elegimos un elemento al que llamamos pivote, resituamos todos los elementos
+del vector entorno al pivote, de manera que los menores que le queden al lado izquerdo
+y los mayores a su derecha. A continuación separamos el vector en dos subvectores y le
+aplicamos recursivamente el proceso de Ordenación rápida. Se trata de un algoritmo de
+complejidad O(nlogn) en el mejor caso, O(n²) en el peor caso y en el caso medio o(nlogn).
+
