@@ -283,19 +283,19 @@ int main(){
 
 	printf("vector aleatorio\n");
 	potencias[1]=1.11;
-	potencias[0]=potencias[1]-0.1;
+	potencias[0]=1;
 	potencias[2]=potencias[1]+0.1;
 	cotas(ord_rapida, vec_aleatorio, potencias, UMBRAL);
 
 	printf("\nvector ascendente\n");
 	potencias[1]=1.11;
-	potencias[0]=potencias[1]-0.1;
+	potencias[0]=1;
 	potencias[2]=potencias[1]+0.1;
 	cotas(ord_rapida, vec_ascendente, potencias, UMBRAL);
 
 	printf("\nvector descendente\n");
 	potencias[1]=1.11;
-	potencias[0]=potencias[1]-0.1;
+	potencias[0]=1;
 	potencias[2]=potencias[1]+0.1;
 	cotas(ord_rapida, vec_descendente, potencias, UMBRAL);
 
