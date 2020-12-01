@@ -221,7 +221,6 @@ void test(){
 }
 
 int main(){
-    int a;
 	double potencias[3];
 	int UMBRAL;
 
