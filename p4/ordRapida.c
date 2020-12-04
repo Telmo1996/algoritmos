@@ -7,18 +7,18 @@
 #include <math.h>
 
 double microsegundos() {
-    struct timeval t;
-    if (gettimeofday(&t, NULL) < 0 )
-        return 0.0;
-    return (t.tv_usec + t.tv_sec * 1000000.0);
+	struct timeval t;
+	if (gettimeofday(&t, NULL) < 0 )
+		return 0.0;
+	return (t.tv_usec + t.tv_sec * 1000000.0);
 }
 
 void inicializar_semilla(){
-    srand(time(NULL));
+	srand(time(NULL));
 }
 
 int  aleatorio(int izq, int der){  //se generan números pseudoaleatorio entre -n y +n
-    return izq + rand() / (RAND_MAX /(der-izq + 1) + 1);
+	return izq + rand() / (RAND_MAX /(der-izq + 1) + 1);
 }
 
 void intercambiar(int v[], int n1, int n2){
@@ -28,17 +28,17 @@ void intercambiar(int v[], int n1, int n2){
 }
 
 void ord_ins(int v[], int n){
-    int i, x, j;
+	int i, x, j;
 
-    for (i=1; i<n; i++){
-        x = v[i];
-        j = i-1;
-        while(j>-1 && v[j]>=x){
-            v[j+1] = v[j];
-            j = j-1;
-        }
-        v[j+1] = x;
-    }
+	for (i=1; i<n; i++){
+		x = v[i];
+		j = i-1;
+		while(j>-1 && v[j]>=x){
+			v[j+1] = v[j];
+			j = j-1;
+		}
+		v[j+1] = x;
+	}
 }
 
 void ord_aux(int v[], int izq, int der, int UMBRAL){
@@ -74,109 +74,109 @@ void ord_rapida(int v[], int n, int UMBRAL){
 }
 
 void vec_aleatorio(int v[], int n){  //se generan números pseudoaleatorio entre -n y +n
-    int i, m=2*n+1;
-    for(i=0;i<n;i++){
-        v[i]=(rand() %m)-n;
-    }
+	int i, m=2*n+1;
+	for(i=0;i<n;i++){
+		v[i]=(rand() %m)-n;
+	}
 }
 
 void vec_ascendente(int v[],int n){
-    int i;
-    for(i=0;i<n;i++){
-        v[i]=i;
-    }
+	int i;
+	for(i=0;i<n;i++){
+		v[i]=i;
+	}
 }
 
 void vec_descendente(int v[], int n){
-    int i;
-    for(i=0;i<n;i++){
-        v[n-i-1]=i;
-    }
+	int i;
+	for(i=0;i<n;i++){
+		v[n-i-1]=i;
+	}
 }
 
 int esta_ordenado(int v[], int n){
-    for (int i=1; i<n; i++){
-        if(v[i-1] > v[i]){
-            printf("NO está ordenado.");
-            return 0;
-        }
-    }
-    printf("SI está ordenado.");
-    return 1;
+	for (int i=1; i<n; i++){
+		if(v[i-1] > v[i]){
+			printf("NO está ordenado.");
+			return 0;
+		}
+	}
+	printf("SI está ordenado.");
+	return 1;
 }
 
 void print_array(int v[], int n){
-    printf("{%d", v[0]);
-    for (int i=1; i<n; i++){
-        printf(", %d", v[i]);
-    }
-    printf("} ");
-    esta_ordenado(v, n);
-    printf("\n");
+	printf("{%d", v[0]);
+	for (int i=1; i<n; i++){
+		printf(", %d", v[i]);
+	}
+	printf("} ");
+	esta_ordenado(v, n);
+	printf("\n");
 }
 
 double tiempos(
-    void (*fun_init)(int[],int),
-    void (*fun_ord)(int[],int,int),
-    int v[], int n, int UMBRAL)
+	void (*fun_init)(int[],int),
+	void (*fun_ord)(int[],int,int),
+	int v[], int n, int UMBRAL)
 {
 
-    int k=100, i;
-    double t, ta, tb,t1,t2;
+	int k=100, i;
+	double t, ta, tb,t1,t2;
 
-    printf("%d\t", n);
+	printf("%d\t", n);
 
-    ta = microsegundos();
-    fun_ord(v,n,UMBRAL);
-    tb = microsegundos();
+	ta = microsegundos();
+	fun_ord(v,n,UMBRAL);
+	tb = microsegundos();
 
-    t = tb - ta;
+	t = tb - ta;
 
-    if (t < 500.0){
-        printf("*");
+	if (t < 500.0){
+		printf("*");
 
-        ta = microsegundos();
-        for (i=0; i<k; i++){
-            fun_init(v,n);
-            fun_ord(v,n,UMBRAL);
-        }
-        tb = microsegundos();
-        t1 = tb-ta;
-        ta=microsegundos();
-        for(i=0;i<k;i++){
-            fun_init(v,n);
-        }
-        tb=microsegundos();
-        t2=tb-ta;
-        t=(t1-t2)/k;
-    }else{
-        printf(" ");
-    }
+		ta = microsegundos();
+		for (i=0; i<k; i++){
+			fun_init(v,n);
+			fun_ord(v,n,UMBRAL);
+		}
+		tb = microsegundos();
+		t1 = tb-ta;
+		ta=microsegundos();
+		for(i=0;i<k;i++){
+			fun_init(v,n);
+		}
+		tb=microsegundos();
+		t2=tb-ta;
+		t=(t1-t2)/k;
+	}else{
+		printf(" ");
+	}
 
-    return t;
+	return t;
 }
 
 void cotas(
-    void (*fun_ord)(int[],int,int),
-    void (*fun_init)(int[],int),
-    double potencias[3],
+	void (*fun_ord)(int[],int,int),
+	void (*fun_init)(int[],int),
+	double potencias[3],
 	int UMBRAL)
 {
-    int n;
-    double t;
+	int n;
+	double t;
 
-    printf("n\tt(n)\t\tt(n)/n^%4.2f\tt(n)/n^%4.2f\tt(n)/n^%4.2f\n",
-        potencias[0], potencias[1], potencias[2]);
-    for(n=512; n<=pow(2, 16); n*=2){
-        int v[n];
-        fun_init(v, n);
-        t=tiempos(fun_init, fun_ord, v, n, UMBRAL);
+	printf("n\tt(n)\t\tt(n)/n^%4.2f\tt(n)/n^%4.2f\tt(n)/n^%4.2f\n",
+		potencias[0], potencias[1], potencias[2]);
+	for(n=512; n<=pow(2, 16); n*=2){
+		int v[n];
+		fun_init(v, n);
+		t=tiempos(fun_init, fun_ord, v, n, UMBRAL);
 
-        printf("%10.4f\t", t);
-        for (int i=0; i<3; i++)
-            printf("%10.8f\t", t/pow(n, potencias[i]));
-        printf("\n");
-    }
+		printf("%10.4f\t", t);
+		for (int i=0; i<3; i++)
+			printf("%10.8f\t", t/pow(n, potencias[i]));
+		printf("\n");
+	}
 }
 
 void test(){
@@ -224,7 +224,7 @@ int main(){
 	double potencias[3];
 	int UMBRAL;
 
-    inicializar_semilla();
+	inicializar_semilla();
 	test();
 
 	printf("\n\nTiempos calculados en us.\n");
@@ -275,7 +275,7 @@ int main(){
 	potencias[2]=potencias[1]+0.1;
 	cotas(ord_rapida, vec_descendente, potencias, UMBRAL);
 
-	
+
 	printf("\nUMBRAL = 100\n");
 	printf("\t\t\tsubestimada\tajustada\tsobreestimada\n");
 	UMBRAL=100;
