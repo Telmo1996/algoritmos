@@ -242,11 +242,18 @@ n		t(n)			t(n)/n^1.00		t(n)/n^1.11		t(n)/n^1.21
 
 CONCLUSIÓN****************************************************************************************************
 
-En esta práctica hemos comprobado el efecto que tiene cambiar el umbral
+	En esta práctica hemos comprobado el efecto que tiene cambiar el umbral
 en el algoritmo quicksort así como su comportamiento cuando el vector inicial
 se encuentra en distintos estados (ordenado, aleatorio y descendente).
 
-Se puede observar que el umbral que ha dado mejor resultado ha sido 10. Esto se
-debe a que al seguir aumentando el umbral dependemos mas de la ordenación por insercion
-que nos da peores resultados.
+	Se puede observar que con el umbral con el que hemos obtenido mejores tiempos ha
+sido 10 para el caso del vector aleatrio. Esto se debe a que al seguir aumentando el 
+umbral dependemos mas de la ordenación por insercion que nos da peores resultados por
+ser este su peor caso.
 
+	Sin embargo para el caso del vector ordenado ascendente y descendentemente obtenemos
+mejores tiempos con el umbral 100. Este resultado es coherente con el anterior ya que
+estos son los casos en los que la ordenacion por insercion obtiene los mejores tiempos.
+
+	También cabe destacar que en esta práctica hemos obtenido complejidades muy similares
+para todos los casos.
