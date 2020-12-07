@@ -17,7 +17,8 @@ void inicializar_semilla(){
 	srand(time(NULL));
 }
 
-int  aleatorio(int izq, int der){  //se generan números pseudoaleatorio entre -n y +n
+int  aleatorio(int izq, int der){
+	//se generan números pseudoaleatorio entre -n y +n
 	return izq + rand() / (RAND_MAX /(der-izq + 1) + 1);
 }
 
@@ -73,7 +74,8 @@ void ord_rapida(int v[], int n, int UMBRAL){
 		ord_ins(v, n);
 }
 
-void vec_aleatorio(int v[], int n){  //se generan números pseudoaleatorio entre -n y +n
+void vec_aleatorio(int v[], int n){
+	//se generan números pseudoaleatorio entre -n y +n
 	int i, m=2*n+1;
 	for(i=0;i<n;i++){
 		v[i]=(rand() %m)-n;
