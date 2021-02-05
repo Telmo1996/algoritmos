@@ -195,19 +195,19 @@ int main(){
 
     printf("vector aleatorio\n");
     potencias[1]=1.11;
-    potencias[0]=potencias[1]-0.1;
+    potencias[0]=1;
     potencias[2]=potencias[1]+0.1;
     cotas(ordenar, vec_aleatorio, potencias);
 
     printf("\nvector ascendente\n");
     potencias[1]=1.11;
-    potencias[0]=potencias[1]-0.1;
+    potencias[0]=1;
     potencias[2]=potencias[1]+0.1;
     cotas(ordenar, vec_ascendente, potencias);
 
     printf("\nvector descendente\n");
     potencias[1]=1.11;
-    potencias[0]=potencias[1]-0.1;
+    potencias[0]=1;
     potencias[2]=potencias[1]+0.1;
     cotas(ordenar, vec_descendente, potencias);
 }
