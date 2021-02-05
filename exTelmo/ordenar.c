@@ -194,20 +194,20 @@ int main(){
     printf("\t\t\tsubestimada\tajustada\tsobreestimada\n");
 
     printf("vector aleatorio\n");
-    potencias[1]=1.08;
-    potencias[0]=1;
+    potencias[1]=1.11;
+    potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ordenar, vec_aleatorio, potencias);
 
-    printf("vector ascendente\n");
-    potencias[1]=1.08;
-    potencias[0]=1;
+    printf("\nvector ascendente\n");
+    potencias[1]=1.11;
+    potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ordenar, vec_ascendente, potencias);
 
-    printf("vector descendente\n");
-    potencias[1]=1.08;
-    potencias[0]=1;
+    printf("\nvector descendente\n");
+    potencias[1]=1.11;
+    potencias[0]=potencias[1]-0.1;
     potencias[2]=potencias[1]+0.1;
     cotas(ordenar, vec_descendente, potencias);
 }
