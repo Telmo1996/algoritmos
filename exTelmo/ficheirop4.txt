@@ -1,5 +1,5 @@
-INFORME P4 ALGORITMOS: Ordenación rápida******************************************************************************************
-Autores: Telmo Fernández Corujo, Anna Taboada Pardiñas y Andrés Pérez Comesaña.
+INFORME EXAMEN ALGORITMOS:
+Autore: Telmo Fernández Corujo.
 
 En esta práctica vamos a implementar la función de Ordenación rápida (Quicksort)
 y vamos a comparar los tiempos de ejecución resultantes al ordenar vectores con
@@ -8,24 +8,20 @@ descendentemente y un vector desordenado), así mismo los vectores deberán tene
 distintos tamaños y ubrales(1, 10 y 100).
 
 Las especificaciones de la máquina que vamos a utilizar son las siguientes:
-OS: Ubuntu 18.04.5 LTS x86_64 
-Host: GL62M 7RDX REV:1.0 
-Kernel: 5.4.0-48-generic 
-Uptime: 4 hours, 15 mins 
-Packages: 1922 
-Shell: bash 4.4.20 
-Resolution: 1920x1080 
-DE: MATE 
-WM: Metacity (Marco) 
-WM Theme: Radiant-MATE-Aqua 
-Theme: Radiant-MATE-Aqua [GTK2/3] 
-Icons: Radiant-MATE-Aqua [GTK2/3] 
-Terminal: mate-terminal 
-Terminal Font: Ubuntu Mono 13 
-CPU: Intel i5-7300HQ (4) @ 3.500GHz 
-GPU: Intel Integrated Graphics 
-GPU: NVIDIA GeForce GTX 1050 Mobile 
-Memory: 2371MiB / 7880MiB
+OS: Linux Mint 20 x86_64
+Host: Swift SF315-41 V2.11
+Kernel: 5.4.0-53-generic
+Uptime: 3 mins
+Packages: 2109 (dpkg)
+Shell: bash 5.0.17
+Resolution: 1920x1080
+WM: i3
+Theme: Mint-Y-Dark-Brown [GTK2/3]
+Icons: Mint-Y-Dark-Brown [GTK2/3]
+Terminal: x-terminal-emul
+CPU: AMD Ryzen 5 2500U with Radeon Vega Mo
+GPU: AMD ATI Radeon Vega Series / Radeon V
+Memory: 1153MiB / 6916MiB
 
 Las unidades de tiempo utilizadas son los microsegundos (us).
 
