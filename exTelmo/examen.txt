@@ -1,7 +1,6 @@
 INFORME EXAMEN ALGORITMOS:
-Autore: Telmo Fernández Corujo.
+Autor: Telmo Fernández Corujo.
 
-Tiempos calculados en us.
 			subestimada	ajustada	sobreestimada
 vector aleatorio
 n	t(n)		t(n)/n^1.01	t(n)/n^1.11	t(n)/n^1.21
@@ -36,11 +35,11 @@ n	t(n)		t(n)/n^1.01	t(n)/n^1.11	t(n)/n^1.21
 32768	  2314.0000	0.06364421	0.02250163	0.00795553	
 65536	  5056.0000	0.06904979	0.02277793	0.00751392
 
-En esta práctica vamos a implementar la función de Ordenación rápida (Quicksort)
-y vamos a comparar los tiempos de ejecución resultantes al ordenar vectores con
-distintas situaciones iniciales(vector ordenado ascendentemente, vector ordenado
-descendentemente y un vector desordenado), así mismo los vectores deberán tener 
-distintos tamaños y ubrales(1, 10 y 100).
+
+Con este codigo se pretende implementar el algorimo ordenar propuesto en
+el enunciado del examen y se va a estudiar su complejidad de forma empirica
+para los casos del vector original aleatorio, ordenado ascendentemente y
+ordenado descendentemente.
 
 Las especificaciones de la máquina que vamos a utilizar son las siguientes:
 OS: Linux Mint 20 x86_64
@@ -61,15 +60,6 @@ Memory: 1153MiB / 6916MiB
 Las unidades de tiempo utilizadas son los microsegundos (us).
 
 *********************************************************************************
-ALGORIMO DE ORDENACIÓN RÁPIDA (QUICKSORT): este algoritmo trabaja de la siguiente 
-forma: elegimos un elemento al que llamamos pivote, resituamos todos los elementos
-del vector entorno al pivote, de manera que los menores que le queden al lado izquerdo
-y los mayores a su derecha. A continuación separamos el vector en dos subvectores y le
-aplicamos recursivamente el proceso de Ordenación rápida. Se trata de un algoritmo de
-complejidad O(nlogn) en el mejor caso, O(n²) en el peor caso y en el caso medio o(nlogn).
-
-
-MEDICIONES CON UMBRAL=1------------------------------------------------------------------
 
 VECTOR ALEATORIO
 
